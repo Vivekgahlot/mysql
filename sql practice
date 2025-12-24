@@ -86,3 +86,75 @@ select count (continent), count(distinct continent)from country;
 select count(indepyear), count(*) from country where Continent='Asia';
 
 select * from country;
+-- get the total country and total region along with the avaerage alive expentency and the total poulation for the
+-- country is who have got the indepepncdence after 1947 and before 1998
+
+select count(name), count(region),avg(lifeexpectancy), sum(population)
+from country where indepyear>1947 and IndepYear<1998;
+
+-- guess the total no. of country and the unique region along with the total population and higest lifeexpectancy 
+-- rate with the total capitals for the country starting with the letter 'A' and letter 'D'
+
+select count(name), count(distinct region), max(lifeexpectancy), sum(population), sum(Capital)
+from country where left (name,1) = 'A' OR left (name,1) = 'D';
+
+-- asia (total country)
+select count(name) from country where continent = 'asia'; 
+
+select count(name) from country where continent = 'africa'; 
+
+-- group  by statement ( similar value ko collect krna in a group)
+
+select continent from country group by continent;
+
+select indepyear from country group by indepyear;
+
+select continent, count(name)from country group by continent;
+
+-- jis bhi colum pr group by krte ho ussi colum pr 
+
+-- we need to find out the total country and the total populaion for each independent year 
+
+select count(name), sum(population), indepyear from country group by indepyear;
+
+-- group by ke sath column nhi lag sakta 
+
+select sum(population)from country;
+
+select continent, count(name) from country group by continent;
+
+-- find out asia continent , how many country are there ?
+
+select count(name) from country where continent='Asia' and indepyear>1950;
+
+select continent, count(name) from country where indepyear>1950 group by continent;
+
+select continent, count(name) from country group by continent;
+
+-- where m sirf whii data filter hoga jo data physically present ho.
+
+select continent, count(name) from country where count(name)>30 group by continent;
+
+-- where hmesha data ko filter krta h and unhi data ko filter krta h jo data m present ho,and, having uss data ko filter krta h jo colum mila uspr filter krta h , aggregate function ke upper.
+select continent, count(name) from country group by continent having count(name)>30;
+
+-- you need to find out the total population innsach continent?
+
+select continent , sum(population) from country group by continent;
+
+select continent , sum(population) from country group by continent having sum(population)>30401150;
+
+-- harr ek saal kitni country independent hui
+select indepyear, count(name)from country group by indepyear;
+
+select indepyear, count(name)from country where indepyear>1930 group by indepyear having count(name)>2;
+
+-- you need to get gov. form and the total no. of country for each gov. form where there total no. of country should be greater than 20?
+-- you need to get gov. form and the total no. of country for each gov. where the country should have the capital greater than 30?
+-- get the no. of country and the region with the total population where the lifeexpectancy should be greater than 38 and the population in each continent should be greater than 3lac?
+
+select GovernmentForm ,count(name) from country group by GovernmentForm having count(name)>20;
+
+select GovernmentForm ,count(name) from country where capital>30 group by GovernmentForm;
+
+select continent, count(name), count(region), sum(population) from country where lifeexpectancy>38 group by Continent having sum(population)<300000;
