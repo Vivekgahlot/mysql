@@ -158,3 +158,95 @@ select GovernmentForm ,count(name) from country group by GovernmentForm having c
 select GovernmentForm ,count(name) from country where capital>30 group by GovernmentForm;
 
 select continent, count(name), count(region), sum(population) from country where lifeexpectancy>38 group by Continent having sum(population)<300000;
+use sakila;
+
+show tables;
+
+select * from payment;
+
+select count(*) from payment where amount=2.99; 
+
+select * from payment;
+
+select amount, count(*) from payment group by amount;
+
+
+select customer_id, sum(amount) from payment group by customer_id;
+
+select customer_id, sum(amount) from payment where  amount>3 group by customer_id;
+
+select * from payment;
+
+select amount, count(*) from payment where payment_date > 2005-05 group by amount;
+
+select payment-date, month(payment-date) from payment where month (payyment-date)=5 group by customer-id;
+
+select * from payment;
+select customer_id, count(amount) from payment
+where month(payment_date)=5 group by customer_id;
+
+-- you need to find out the max transiction amount ther avg transiction amount and the total transiction amount done threough each staff
+
+select * from payment;
+
+select staff_id, max(amount), avg(amount), sum(amount) from payment where customer_id%2=0 group by staff_id;
+
+select * from payment;
+
+-- get the amount and the total transction for each amount only for the payment done througt the staff id 1 and the total transtion should be greater than 30
+
+select amount, count(*) from payment where staff_id =1 group by amount having count(*)>30;
+
+-- find out the no. of customer served along with avg amount and the total amount spent in each month for staff id 1 & 2
+
+select month(payment_date), count (customer_id),
+avg(amount), sum(amount)
+from payment where staff_id=1 or staff_id=2 group by month(payment_date);
+
+-- find out the no. of customer served along with avg amount and the total amount spent in each month each year staff id 1 & 2
+
+select extract(year from paymentt_date),extract(month from payment_date), count (customer_id),
+avg(amount), sum(amount)
+from payment where staff_id=1 or staff_id=2 group by extract(year from payment_date), extract(month from payment_date);
+
+select * from payment order by customer_id, amount desc;
+
+use world;
+
+-- Data Model :-
+
+-- structure => how to organise 
+-- 1. conceptional ,, 2. logical ,, 3. physical
+-- 1. conceptional => entity,attributes => relationship
+-- 2. logical
+-- 3. phyiscal => table , column , relationship, data types
+
+-- Primary key = unique { no dublicates value}
+-- Foreign key = multiple { dublicates value}
+
+use world;
+
+-- city table (id primary key), country code(foregin key)
+select * from city;
+describe city;
+select * from country;
+
+-- code(primary key)
+select count(code), count(distinct code) from country;
+
+-- join (it is used to connect two tables from primary key and foregin key)
+
+select cy.id, cy.name, cy.countrycode, cnt.code, cnt.name, cnt.continent from city as cy
+join
+country as cnt
+where cy.countrycode=cnt.code;
+
+select cnt.code, cnt.name, cnt.continent from country as cnt;
+
+-- find the city name, population , country name along with the gov. form for each city 
+
+select ct.name, ct.population, cuy.name, cuy.governmentform from city as ct
+join 
+country as cuy
+where ct.countrycode=cuy.code;
+
