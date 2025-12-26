@@ -1,7 +1,6 @@
 use eg;
 
 use world;
-
 select name , substr(name, 2), substr(name, 2,4) from country;
 use world;
 SHOW DATABASES;
