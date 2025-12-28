@@ -412,3 +412,13 @@ INSERT INTO employee (emp_id, emp_name, job_title, manager_id, salary) VALUES
 
 (15, 'Sybil', 'Intern', 8, 35000);
 
+select * from employee;
+
+-- in terms of employee
+select emp.emp_id , emp.emp_name , emp.manager_id from employee as emp join employee as manager;
+
+-- in trefernce of manager
+select manager.emp_id , manager.emp_name from employee as manager;
+
+select emp.emp_id , emp.emp_name , emp.manager_id ,emp.salary, manager.emp_id , manager.emp_name  , manager.salary from employee as emp join employee as manager
+where emp.manager_id = manager.emp_id;
