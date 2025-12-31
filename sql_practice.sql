@@ -481,3 +481,48 @@ INSERT INTO enrollments (enrollment_id, student_id, course_name, credits) VALUES
 (118, 17, 'Numerical Methods', 3),
 (119, 18, 'Solid State Physics', 4),
 (120, 1, 'Artificial Intelligence', 4);
+select * from students;
+select * from enrollments;
+
+-- get the student who have enrolled in any courses or not 
+
+select s.student_id , s.student_name, e.enrollment_id,e.course_name from students as s left join enrollments e on s.student_id=e.student_id;
+
+-- Write a sql , query to list all student alomg with their enrolled it ..... only incluse who have enrolled at least one course
+
+select s.student_name, e.course_name from students as s left join enrollments e on s.student_id=e.student_id;
+
+select  s.student_id, s.student_name, e.enrollment_id, e.course_name from students as s left join enrollments e on s.student_id=e.student_id
+where enrollment_id is NULL;
+
+select  s.student_id, s.student_name, e.enrollment_id, e.course_name from students as s left join enrollments e on s.student_id=e.student_id;
+
+select s.student_id, s.student_name, count(e.enrollment_id) from students as s join enrollments as e on s.student_id = e.student_id
+group by s.student_id, s.student_name;
+
+-- calculate the total credits earned by each students , including students who have not enrolled in any courses 
+
+-- find the number of students in each major
+select major, count(student_id) from students group by major;
+
+select s.major, sum(c.credits) from students as s join enrollments e on s.student-id=e.student_id group by s.major;
+
+ -- length of their names and show the count of students in each group
+select char_length(student_name), count(student_id )from students group by char_length(student_name);
+
+-- find out in each group how many students enrolled in courses
+select char_length(s.student_name),count(s.student_id) from students s join enrollments e
+on s.student_id = e.student_id group by char_length(s.student_name);
+
+select char_length(s.student_name), count(e.student_id) from students s join enrollments e on s.student_id = e.student_id 
+group by char_length(s.student_name) order by count(e.enrollment_id) desc limit 1;
+
+-- CASE
+/*
+if (condition , true, false)
+if( condition , true , if(condtion, true, if)
+
+case 
+    when condition Expression then output
+    when condition. then output
+end    
