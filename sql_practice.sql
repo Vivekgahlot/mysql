@@ -526,3 +526,22 @@ case
     when condition Expression then output
     when condition. then output
 end    
+*/
+
+select name , population,
+case 
+    when population=0 then 'No population'
+    when population between 8000 and 70000 then 'Med population'
+    else 'Condtion is False'
+end as 'status' from world.country;
+
+select count(*),
+case 
+    when population=0 then 'No population'
+    when population between 8000 and 70000 then 'Med population'
+    else 'Condtion is False'
+end as 'status' from world.country group by status;
+
+select continent, population 
+from world.country;
+
