@@ -544,4 +544,20 @@ end as 'status' from world.country group by status;
 
 select continent, population 
 from world.country;
+select count(*),
+case 
+    when population=0 then 'No population'
+    when population between 8000 and 70000 then 'Med population'
+    else 'Condtion is False'
+end as 'status' from world.country group by status;
 
+select continent, population 
+from world.country;
+
+-- kis continent m esi kitni country h jinki population 8000 - 70000 ke beech m
+-- we can not write where bcz it will give full data and we can't categorize it
+select continent,
+sum(case 
+    when population between 8000 and 70000 then 1 else 0
+end )
+from world.country group by continent;
