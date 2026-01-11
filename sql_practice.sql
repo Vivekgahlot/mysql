@@ -642,3 +642,20 @@ from employee e
 join department d
 on e.department_name = d.department_name
 where e.salary > 30000;
+select * from employee;
+
+select ename, salary, department_name from employee where eid=4 and salary>(select avg(salary) from employee as e
+where e.department_name=employee.department_name);
+
+select department_name, avg(salary) from employee group by department_name; 
+
+-- employe name,department salry and salary  should be minium of that particular minimum salary ke equal ho
+
+select ename, department_name, salary from employee
+where salary = (select min(salary) from employee e2
+where e2.department_name = employee.department_name);
+
+select ename, department_name, salary from employee
+where salary<=all(select min(salary) from employee e2
+where e2.department_name = employee.department_name);
+
