@@ -659,3 +659,29 @@ select ename, department_name, salary from employee
 where salary<=all(select min(salary) from employee e2
 where e2.department_name = employee.department_name);
 
+-- table
+-- DDL statment 
+-- create drop, alter , truncate
+create database regex1;
+use regex1;
+create table test1( sno int); -- tables create (sno column name)
+
+describe test1;
+-- dml ( insert statement) 
+
+-- dml ( insert , update , delete , merge)
+insert into test1 value(10);
+select * from test1;
+insert into test1(sno) value(11);
+insert into test1(sno) value(20),(null),(30); -- 3 rows insert
+
+select count(sno) from test1;  -- column name dete h tab null count nhi karega 
+select count(sno), count(*) from test1;  -- idhar column name dene pr null count nhi kr rha but (*) dene pr null count karega
+
+create table test2 (sno int not null ,salary int);
+
+insert into test2(sno,salary) values (20,1000);
+insert into test2(sno,salary) values (20,null);
+insert into test2(sno,salary) values (null,1000);  -- we have set constraint (error)
+insert into test2(sno) values (1000);
+insert into test2(salary) values (500000);  -- error ( bcz no null and no default set
