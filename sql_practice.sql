@@ -685,3 +685,34 @@ insert into test2(sno,salary) values (20,null);
 insert into test2(sno,salary) values (null,1000);  -- we have set constraint (error)
 insert into test2(sno) values (1000);
 insert into test2(salary) values (500000);  -- error ( bcz no null and no default set
+
+elect * from test2;
+
+-- default constraint 
+
+create table test3(sno int not null default 80, salary int);
+insert into test3(salary) values(1000);
+insert into test3(sno) values(5000);
+
+select * from test3;
+
+-- unique Constraints
+
+create table test4(sno int not null, salary int unique default 100);
+select * from test4;
+
+insert into test4 (sno , salary ) values (1000,20000);
+insert into test4 (sno , salary ) values (1001,20000);  -- error dublicate values 
+
+insert into test4(sno) values(600);
+select * from test4;
+insert into test4(sno) values(700); -- error 100 is a value already in table
+
+insert into test4(sno,salary) values(1001,null);   -- multiple null values can be inserted 
+insert into test4(sno,salary) values(1001224,null);  -- error dublicate values
+
+-- Check Constraints ( condition dena like if else)
+-- check condition 
+
+create table test8(sno int check (sno between 1 and 100),
+check (salary in (1000,2000) ));
