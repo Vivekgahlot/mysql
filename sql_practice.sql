@@ -716,3 +716,16 @@ insert into test4(sno,salary) values(1001224,null);  -- error dublicate values
 
 create table test8(sno int check (sno between 1 and 100),
 check (salary in (1000,2000) ));
+
+drop table test7;
+create table test7(sno int, salary int,
+constraint regex_test7_sno_chk check (sno between 1 and 100),
+constraint regex_test7_salary_chk check (salary in (1000,2000) ));
+ 
+ insert into test7(sno,salary) values (4,1000);
+select * from test7;
+ insert into test7(sno,salary) values (150,1000);  -- error 
+ insert into test7(sno,salary) values (90,1500);   -- error
+
+-- create table name as employee,id with primary key use varchar, email column with unique constraint , college with a default value 
+-- age with a condition greater than 18 and the guardian should be a pallindrome -> ( use check constraint bcz constraint)
