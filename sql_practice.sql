@@ -729,3 +729,19 @@ select * from test7;
 
 -- create table name as employee,id with primary key use varchar, email column with unique constraint , college with a default value 
 -- age with a condition greater than 18 and the guardian should be a pallindrome -> ( use check constraint bcz constraint)
+create table test9(name varchar(20) , check (name=reverse (name)));
+insert into test9 values('madam');
+select * from test9;
+
+create table employee (id varchar(20) primary key,email varchar(100) unique,
+college varchar(100) default 'ABC College',
+age int check  (age > 18),guardian varchar(50),check (guardian = reverse(guardian)));
+
+insert into employee (id, email, age, guardian)
+values ('01', 'test@gmail.com', 22, 'naman');
+
+create database regex1;
+use regex1;
+
+drop table customer9;
+drop table orders9;
