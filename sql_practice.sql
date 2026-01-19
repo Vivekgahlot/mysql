@@ -776,3 +776,33 @@ truncate actor_cp;
 -- Table me har record ko uniquely identify karti hai
 -- link between 2 tables 
 -- Multiple tables ke data ko common column ke base par jodta hai
+select * from sakila.actor;
+select * from sakila.payment;
+
+-- Windows function => window funtion is used to perform the calculation on the set of rows with reference to current rows 
+-- 3 parts => 1.Over == to apply the functin over a window(a set of rows)
+
+use world;
+select * from country;
+select code,name,continent,
+population,(select sum(population) from country) from country;  
+
+select code,name,continent,
+population,sum(population) over() from country; 
+
+-- subqueries m over() use nhi kr sakte
+
+-- Partition By => it is same as group by, which is used to apply the logic into group  // similar values pr lagate h 
+
+--  3705025700 , north america => 482993000
+select continent , sum(population) from country group by continent;
+
+-- 3705025700
+select code, name, continent,
+ population , sum(population) over(partition by continent)from country;
+
+-- Q. what is the running sum , cumulative sum ?
+-- in this we use " order by "
+
+select code, name, continent,
+ population , sum(population) over(order by population)from country;
