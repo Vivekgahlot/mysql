@@ -806,3 +806,28 @@ select code, name, continent,
 
 select code, name, continent,
  population , sum(population) over(order by population)from country;
+use world;
+select * from country;
+
+select code, name, continent, population from country;
+
+select population, avg(population) from country;    -- error
+
+select code, name, continent, population, avg(population) over(), sum(population) over() from country;
+
+select continent, sum(population) from country group by continent;
+
+-- over => its is used to perform set of rows calculate ( partion by => based on continent )
+
+select code, name, continent, population,
+sum(population) over(),
+sum(population) over(partition by continent) from country;
+
+select code, name, continent, population,
+sum(population) over(partition by code) from country;
+
+select code, name, continent, region, population,
+sum(population) over(partition by continent),
+sum(population) over(partition by continent,region) from country;
+
+
