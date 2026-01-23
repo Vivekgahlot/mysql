@@ -874,3 +874,34 @@ INSERT INTO sales (sale_id, emp_id, sale_date, amount) VALUES
 
 -- over() => ascending order main arrange krke dena;
 -- running sum/cumulative sum of salary
+select *,
+sum(salary) over(order by emp_id) from employees;
+
+select *,
+sum(salary) over(order by full_name) from employees;
+
+select *,
+sum(salary) over(order by month(hire_date)) from employees;
+
+select *,
+sum(salary) over(partition by department order by salary) from employees;
+
+-- windows fuction :- 1. row => give Unique number
+
+select *,
+row_number() over(partition by department)
+from employees;
+
+select *,
+row_number() over(partition by department order by hire_date)
+from employees;
+
+-- 2. rank => comparison hoga tab ranking dega ( if the value is same, the ranking will by shared same and skip next rank) 
+
+select *,
+rank() over(order by salary)
+from employees;
+
+select *,
+rank() over(order by hire_date)
+from employees;
