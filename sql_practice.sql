@@ -971,3 +971,89 @@ GROUP BY event_id;
 select event_id,sum(qty*price_per_ticket)
 from ticket_sales
 group by event_id;
+
+-- Find monthly total revenue (group by month of sale_date).
+select month(sale_date) as sale_month, sum(qty * price_per_ticket)
+from ticket_sales group by month(sale_date)
+order by sale_month;
+
+-- Find the maximum price_per_ticket per event_id.
+select event_id,max(price_per_ticket) from ticket_sales
+group by event_id order by event_id;
+
+-- Find total revenue per month and ticket_type.   
+
+select month(sale_date) as sale_month,ticket_type,
+sum(qty * price_per_ticket) from ticket_sales
+group by(sale_date), ticket_type
+order by sale_month, ticket_type;
+
+-- List all sales with event_name and sale_date.
+select ts.sale_id,e.event_name,ts.sale_date
+from ticket_sales ts
+join events e on ts.event_id = e.event_id;
+
+-- Show event_name, ticket_type, qty for each sale.
+select e.event_name, ts.ticket_type,qty 
+from ticket_sales ts
+join events e on ts.event_id = e.event_id;
+
+-- Show sales where the event city is Mumbai.
+select ts.sale_id,e.event_name,e.city,ts.sale_date
+from ticket_sales ts
+join events e on ts.event_id = e.event_id
+where e.city = "mumbai";
+
+-- Show all events and matching sales.
+select e.event_name,ts.sale_id,ts.sale_date
+from ticket_sales ts
+join events e on ts.event_id = e.event_id;
+
+-- Show distinct event names that have at least one sale.
+select distinct e.event_name from events e
+join ticket_sales ts
+on e.event_id = ts.event_id;
+
+-- Show each sale’s computed revenue with event name.
+select ts.sale_id,e.event_name,ts.qty * ts.price_per_ticket
+from ticket_sales ts
+join events e on ts.event_id = e.event_id;
+
+-- Find total quantity per event_name.
+select e.event_name,sum(ts.qty) from events e
+join ticket_sales ts
+on e.event_id = ts.event_id 
+group by e.event_name;
+
+-- Find total VIP revenue per event_name.
+select e.event_name,sum(ts.qty * ts.price_per_ticket)
+from events e join ticket_sales ts
+on e.event_id = ts.event_id where ts.ticket_type = 'VIP'
+group by e.event_name;
+
+-- Find monthly revenue per city.
+select e.city,month(ts.sale_date) as sale_month,sum(ts.qty *ts.price_per_ticket)
+from events e join ticket_sales ts on e.event_id = ts.event_id
+group by e.city, month(ts.sale_date)
+order by e.city,sale_month;
+
+-- Find total quantity per city and ticket_type.
+-- select e.city,ts.ticket_type,sum(ts.qty *ts.price_per_ticket) from events e join ticket_sales ts on e.event_id = ts.event_id;
+
+-- Find sales that happened on the latest sale_date in the table.
+
+-- Find sales where revenue is greater than the overall average sale revenue.
+select ts.sale_id, e.event_id,ts.qty * ts.price_per_ticket
+from events e join ticket_sales ts
+on e.event_id = ts.event_id 
+group by ts.sale_id,e.event_id;
+
+-- Find events that have at least one VIP sale.
+select e.event_id, e.event_name
+from events e join ticket_sales ts
+on e.event_id = ts.event_id where ts.ticket_type = 'VIP'
+group by e.event_name,e.event_id;
+
+-- TCL :- Transaction control language 
+-- Transaction => Set of logical statement ( permanent nhi hai )
+-- update 
