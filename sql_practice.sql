@@ -1057,3 +1057,22 @@ group by e.event_name,e.event_id;
 -- TCL :- Transaction control language 
 -- Transaction => Set of logical statement ( permanent nhi hai )
 -- update 
+use regex1;
+create table actor_cp2 as select actor_id,first_name from sakila.actor
+where actor_id between 1 and 5; 
+
+select * from actor_cp2;
+insert into actor_cp2 values(6,'piyush');
+
+-- autocommit => enable
+set @@autocommit=1;
+select @@autocommit;
+insert into actor_cp2 values(9,'testoo');
+commit;
+rollback;
+select * from actor_cp2;
+
+-- Transaction ==> In case , if you run any DML operation or you write down any start transaction word then the transcation will be started. 
+-- when my transation automatic stop => when i use command of transaction of " commit " and " rollback " then it will be closed
+-- In case we use any DDL , TCL operation then transaction will close.
+-- we cam save permanent by puting "commit" statement.
