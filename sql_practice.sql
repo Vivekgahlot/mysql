@@ -1076,3 +1076,20 @@ select * from actor_cp2;
 -- when my transation automatic stop => when i use command of transaction of " commit " and " rollback " then it will be closed
 -- In case we use any DDL , TCL operation then transaction will close.
 -- we cam save permanent by puting "commit" statement.
+
+start transaction;
+insert into actor_cp2 values(11,'Amazon'); 
+select * from actor_cp2;
+
+start transaction;
+insert into actor_cp2 values(12,'abcdef');
+insert into actor_cp2 values(13,'fedcba');
+savepoint db_actor_cp2_checkpoint1;
+delete from actor_cp2 where actor_id in (7,9); 
+select * from actor_cp2; 
+rollback;  -- rollback (initial save point)
+select * from actor_cp2;
+
+-- what is dbms and rdbms?
+-- what MySql?
+-- what os Normalistion?
