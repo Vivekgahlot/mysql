@@ -1093,3 +1093,17 @@ select * from actor_cp2;
 -- what is dbms and rdbms?
 -- what MySql?
 -- what os Normalistion?
+
+select actor_id, first_name from sakila.actor where actor_id between 1 and 4
+union all
+select first_name, actor_id from sakila.actor where actor_id between 1 and 5;
+
+with recursive cte as 
+(select 10 as n            -- assiging values to this n column { starting point }
+union all                   
+select n+1 from cte         -- cte call karna
+where n<15 )               -- termination condition { stop point } 
+
+select * from cte;
+
+-- we have to find out the employee hierarchy  { recursive cte }
