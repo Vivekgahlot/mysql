@@ -1103,7 +1103,6 @@ with recursive cte as
 union all                   
 select n+1 from cte         -- cte call karna
 where n<15 )               -- termination condition { stop point } 
-
 select * from cte;
-
 -- we have to find out the employee hierarchy  { recursive cte }
+                                                   
